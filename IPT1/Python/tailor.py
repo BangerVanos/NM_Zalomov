@@ -1,7 +1,7 @@
 import math
 
 
-DELTA = 1E-15
+DELTA = 1E-8
 PI = math.pi
 
 
@@ -10,8 +10,7 @@ def tailor_term(n: int, x: float) -> float:
 
 
 def sin_tailor(term_num: int, x: float):
-    while x >= 2*PI:
-        x -= 2*PI
+    x -= 2*PI*(x // (2*PI))
     tailor_list = [tailor_term(i, x) for i in range(term_num)]
     # print("Tailor terms:", ', '.join(list(map(str, tailor_list))))
     sin = sum(tailor_list)
@@ -24,7 +23,7 @@ def scores() -> str:
 
 print(scores())
 print("Computed sin\t\tTailor sin")
-for x in range(100):
+for x in range(10000):
     print(scores())
     print(f"Computing sin({x})")
     n = 1
